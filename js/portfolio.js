@@ -55,4 +55,22 @@ document.addEventListener("DOMContentLoaded", function () {
       item.setAttribute("data-title", title);
     }
   });
+
+  const videos = document.querySelectorAll("iframe.player");
+
+  videos.forEach((video) => {
+    // Pause all videos initially
+    video.contentWindow.postMessage(
+      '{"event":"command","func":"pauseVideo","args":""}',
+      "*"
+    );
+
+    // Play video only when clicked
+    video.addEventListener("click", function () {
+      video.contentWindow.postMessage(
+        '{"event":"command","func":"playVideo","args":""}',
+        "*"
+      );
+    });
+  });
 });
